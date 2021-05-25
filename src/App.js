@@ -12,7 +12,6 @@ import axios from 'axios';
 import apiKey from './Config';
 
 //Import Components
-import Header from './components/Header';
 import Nav from './components/Nav';
 import PhotoContainer from './components/PhotoContainer';
 import SearchForm from './components/SearchForm';
