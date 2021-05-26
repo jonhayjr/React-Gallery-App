@@ -30,13 +30,12 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.getAPIData();
     this.getAPIData('flowers');
     this.getAPIData('sunsets');
     this.getAPIData('beaches');
   }
 
-  getAPIData = (search = 'flowers') => {
+  getAPIData = (search) => {
     const API = apiKey;
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags=${search}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
@@ -47,7 +46,7 @@ export default class App extends Component {
         this.setState({sunsetPhotos: response.data.photos.photo, loading: false});
       } else if (search === 'beaches') {
         this.setState({beachPhotos: response.data.photos.photo, loading: false});
-      } else {
+      }  else {
         this.setState({searchPhotos: response.data.photos.photo, loading: false});
       }
 
@@ -56,7 +55,6 @@ export default class App extends Component {
       console.log('Error fetching and parsing data', err);
     });
   }
-
 
   render() {
     return (
@@ -69,7 +67,7 @@ export default class App extends Component {
           <Route path='/search/flowers' render={() => <PhotoContainer loading={this.state.loading} data={this.state.flowerPhotos} />}/>
           <Route path='/search/sunsets' render={() => <PhotoContainer loading={this.state.loading} data={this.state.sunsetPhotos} />}/>
           <Route path='/search/beaches' render={() => <PhotoContainer loading={this.state.loading} data={this.state.beachPhotos} />}/>
-          <Route path='/search/:topic' render={() => <PhotoContainer loading={this.state.loading} data={this.state.searchPhotos}/>}/>
+          <Route path='/search/:topic' render={() => <PhotoContainer loading={this.state.loading} data={this.state.searchPhotos} onSearch={this.getAPIData}/>}/>
           <Route component={NoPhotos}/>
         </Switch>
       </div>
