@@ -14,6 +14,7 @@ import apiKey from './Config';
 //Import Components
 import Nav from './components/Nav';
 import PhotoContainer from './components/PhotoContainer';
+import PhotoContainerSearch from './components/PhotoContainerSearch';
 import SearchForm from './components/SearchForm';
 import NoPhotos from './components/NotFound';
 
@@ -31,63 +32,49 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.getFlowerData();
-    this.getSunsetData();
-    this.getBeachData();
+    const API = apiKey;
+
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags='flowers'&per_page=24&format=json&nojsoncallback=1`)
+    .then(response => {
+      // handle success
+    this.setState({flowerPhotos: response.data.photos.photo, loading: false, topic: 'Flowers'});
+    })
+    .catch(err => {
+      console.log('Error fetching and parsing data', err);
+    });
+
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags='beaches'&per_page=24&format=json&nojsoncallback=1`)
+    .then(response => {
+      // handle success
+    this.setState({beachPhotos: response.data.photos.photo, loading: false, topic: 'Beaches'});
+    })
+    .catch(err => {
+      console.log('Error fetching and parsing data', err);
+    });
+
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags='sunsets'&per_page=24&format=json&nojsoncallback=1`)
+    .then(response => {
+      // handle success
+    this.setState({sunsetPhotos: response.data.photos.photo, loading: false, topic: 'Sunsets'});
+    })
+    .catch(err => {
+      console.log('Error fetching and parsing data', err);
+    });
   }
+  
 
   getAPIData = (search) => {
+   
     const API = apiKey;
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags=${search}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
       // handle success
-      this.setState({searchPhotos: response.data.photos.photo, loading: false, topic: search});
+    this.setState({searchPhotos: response.data.photos.photo, loading: false, topic: search});
     })
     .catch(err => {
       console.log('Error fetching and parsing data', err);
     });
   }
-
-  getFlowerData = () => {
-    const search = 'flowers';
-    const API = apiKey;
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags=${search}&per_page=24&format=json&nojsoncallback=1`)
-    .then(response => {
-      // handle success
-      this.setState({flowerPhotos: response.data.photos.photo, loading: false, topic: search});
-    })
-    .catch(err => {
-      console.log('Error fetching and parsing data', err);
-    });
-  }
-
-  getSunsetData = () => {
-    const search = 'sunsets';
-    const API = apiKey;
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags=${search}&per_page=24&format=json&nojsoncallback=1`)
-    .then(response => {
-      // handle success
-      this.setState({sunsetPhotos: response.data.photos.photo, loading: false, topic: search});
-    })
-    .catch(err => {
-      console.log('Error fetching and parsing data', err);
-    });
-  }
-
-
-  getBeachData = () => {
-    const search = 'beaches';
-    const API = apiKey;
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags=${search}&per_page=24&format=json&nojsoncallback=1`)
-    .then(response => {
-      // handle success
-      this.setState({beachPhotos: response.data.photos.photo, loading: false, topic: search});
-    })
-    .catch(err => {
-      console.log('Error fetching and parsing data', err);
-    });
-  }
-
 
 
   render() {
@@ -95,13 +82,13 @@ export default class App extends Component {
       <BrowserRouter>
       <div className='container'>
       <SearchForm onSearch={this.getAPIData}/>
-      <Nav />
+      <Nav/>
         <Switch>
           <Route exact path='/' render={() => <Redirect to='/search/flowers' />}/>
-          <Route path='/search/flowers' render={(props) => <PhotoContainer loading={this.state.loading} title={this.state.topic} data={this.state.flowerPhotos} onSearch={this.getAPIData}/>}/>
-          <Route path='/search/sunsets' render={(props) => <PhotoContainer loading={this.state.loading} title={this.state.topic} data={this.state.sunsetPhotos} onSearch={this.getAPIData}/>}/>
-          <Route path='/search/beaches' render={(props) => <PhotoContainer loading={this.state.loading} title={this.state.topic} data={this.state.beachPhotos} onSearch={this.getAPIData}/>}/>
-          <Route path='/search/:topic' render={(props) => <PhotoContainer loading={this.state.loading} title={this.state.topic} data={this.state.searchPhotos} onSearch={this.getAPIData}/>}/>
+          <Route path='/search/flowers' render={(props) => <PhotoContainer loading={this.state.loading} title='Flowers' data={this.state.flowerPhotos} />}/>
+          <Route path='/search/sunsets' render={(props) => <PhotoContainer loading={this.state.loading} title='Sunsets' data={this.state.sunsetPhotos} />}/>
+          <Route path='/search/beaches' render={(props) => <PhotoContainer loading={this.state.loading} title='Beaches' data={this.state.beachPhotos}/>}/> 
+          <Route path='/search/:topic' render={(props) => <PhotoContainerSearch loading={this.state.loading} title={this.state.topic} data={this.state.searchPhotos} onSearch={this.getAPIData}/>}/>
           <Route component={NoPhotos}/>
         </Switch>
     

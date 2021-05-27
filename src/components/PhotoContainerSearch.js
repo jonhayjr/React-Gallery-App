@@ -3,9 +3,19 @@ import Photo from './Photo';
 import NoPhotos from './NotFound';
 import {withRouter} from 'react-router-dom';
 
-class PhotoContainer extends Component {
+//Separate component to handle search
+
+class PhotoContainerSearch extends Component {
   constructor(props) {
     super(props); 
+  }
+
+  //To resolve issue with data updating after page refresh
+  componentDidUpdate() {
+    let topic = this.props.match.params.topic;
+    if (this.props.title !== topic) {
+      this.props.onSearch(topic);
+  }
   }
 
 
@@ -41,4 +51,4 @@ class PhotoContainer extends Component {
 
 
 
-export default withRouter(PhotoContainer);
+export default withRouter(PhotoContainerSearch);
