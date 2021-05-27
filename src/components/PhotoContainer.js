@@ -12,26 +12,22 @@ class PhotoContainer extends Component {
   render() {
     const results = this.props.data;
     let photos;
-
-
-      if (results.length > 0 && !this.props.loading) {
-          photos = results.map(photo =>
-            <Photo url={`https://farm5.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`} key={photo.id} title={photo.title}/>
-              );
-        } else if (this.props.loading) {
-          photos = <p>Loading...</p>
-        } else {
-            photos = <NoPhotos />;
-        }
-        
+      photos = results.map(photo =>
+        <Photo url={`https://farm5.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`} key={photo.id} title={photo.title}/>
+         );
+  
  
    
     return(
       <div className="photo-container">
       <h2>{this.props.title}</h2>
         <ul>
-          {
-          photos
+        {
+            this.props.loading
+            ? <p>Loading...</p>
+            : results.length
+            ? photos
+            : <NoPhotos />
           }
         </ul>
       </div> 

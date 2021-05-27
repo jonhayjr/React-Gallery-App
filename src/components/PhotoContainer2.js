@@ -5,14 +5,17 @@ import {withRouter} from 'react-router-dom';
 
 //Separate component to handle search
 
-class PhotoContainerSearch extends Component {
+class PhotoContainerSearch2 extends Component {
   constructor(props) {
     super(props); 
   }
 
+  componentDidMount() {
+    let topic = this.props.match.params.topic;
+    this.props.onSearch(topic);
+  }
   //To resolve issue with data updating after page refresh
   componentDidUpdate(prevProps) {
-
     let topic = this.props.match.params.topic;
     if (prevProps.title !== topic) {
       this.props.onSearch(topic);
@@ -52,4 +55,4 @@ class PhotoContainerSearch extends Component {
 
 
 
-export default withRouter(PhotoContainerSearch);
+export default withRouter(PhotoContainerSearch2);
