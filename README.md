@@ -1,4 +1,19 @@
-# Getting Started with Create React App
+# React Photo Gallery
+This is a photo gallery app that I created using React.  There is a search bar that allows users to search for images.  The images are pulled from the Flickr API using the Axios module.
+
+## How to use these files
+
+1. Download the project files.
+2. Run `npm install` to install the necessary dependencies.
+3. Sign up for a [non-commercial API Flickr API Key](https://www.flickr.com/services/apps/create/noncommercial/?).
+4. Create a file named `config.js` and place it in the `src` folder.  Write this into the file.
+```
+const apiKey = 'YOUR_PUBLIC_KEY';
+export default apiKey;  
+```
+5. Run the command `npm start` to start the app and it will be open up in your browser with [`localhost:3000`](http://localhost:3000/).    
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

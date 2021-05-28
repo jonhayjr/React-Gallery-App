@@ -15,7 +15,6 @@ import apiKey from './Config';
 import Nav from './components/Nav';
 import PhotoContainer from './components/PhotoContainer';
 import SearchForm from './components/SearchForm';
-import NoPhotos from './components/NotFound';
 import FourOhFour from './components/FourOhFour';
 
 export default class App extends Component {
