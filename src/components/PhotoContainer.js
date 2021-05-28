@@ -9,22 +9,31 @@ class PhotoContainer extends Component {
   }
 
   componentDidMount() {
-    let topic = this.props.match.params.topic;
+    ///Get current topic from path.  Use flowers as default value.
+    const topic = this.props.history.location.pathname.replace('/search/', '') || 'flowers';
+   
+    //Get API Data
     this.props.onSearch(topic);
+    
+    //Set loading state to true
+    this.props.updateLoading();
   }
+  
   //To resolve issue with data updating after page refresh
   componentDidUpdate(prevProps) {
-    let topic = this.props.match.params.topic;
+    ///Get current topic from path.  Use flowers as default value.
+    const topic = this.props.history.location.pathname.replace('/search/', '') || 'flowers';
+
+    //If topic changed, get API data
     if (prevProps.title !== topic) {
       this.props.onSearch(topic);
   }
 
-  //If topic has changed and loading is false, sets it to true
+  //If topic has changed and loading is false, loading is set to true
   if (this.props.title !== topic && !this.props.loading) {
     this.props.updateLoading();
   }
   }
-
 
   render() {
     const results = this.props.data;
