@@ -28,19 +28,24 @@ export default class App extends Component {
   }
 
   getAPIData = (search = 'flowers') => {
-  
-      const API = apiKey;
-      axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags=${search}&per_page=24&format=json&nojsoncallback=1`)
-      .then(response => {
-        // handle success
-      this.setState({photos: response.data.photos.photo, loading: false, topic: search});
-      })
-      .catch(err => {
-        console.log('Error fetching and parsing data', err);
-      });
-    
-  }
+    //Set loading state to true if it's false
+    if (!this.state.loading) {
+      this.setState({loading: true});
+    }
 
+
+    const API = apiKey;
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API}&tags=${search}&per_page=24&format=json&nojsoncallback=1`)
+    .then(response => {
+      // handle success
+    this.setState({photos: response.data.photos.photo, loading: false, topic: search});
+    })
+    .catch(err => {
+      console.log('Error fetching and parsing data', err);
+    });
+     
+    
+}
   //Used to set loading state back to true
   updateLoading = () => {
     this.setState({loading: true});

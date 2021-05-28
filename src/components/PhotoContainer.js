@@ -14,51 +14,46 @@ class PhotoContainer extends Component {
    
     //Get API Data
     this.props.onSearch(topic);
-    
-    //Set loading state to true
-    this.props.updateLoading();
   }
   
-  //To resolve issue with data updating after page refresh
-  componentDidUpdate(prevProps) {
+
+  componentDidUpdate(prevProps, prevState) {
     ///Get current topic from path.  Use flowers as default value.
     const topic = this.props.history.location.pathname.replace('/search/', '') || 'flowers';
 
-    //If topic changed, get API data
-    if (prevProps.title !== topic) {
-      this.props.onSearch(topic);
+    //If topic changed and loading is set to false, fetch api data.
+      if (prevProps.title !== topic && !this.props.loading) {
+        this.props.onSearch(topic);
+    }
   }
 
-  //If topic has changed and loading is false, loading is set to true
-  if (this.props.title !== topic && !this.props.loading) {
-    this.props.updateLoading();
-  }
-  }
 
   render() {
     const results = this.props.data;
+    const isData = results.length ? true: false;
     let photos;
 
       photos = results.map(photo =>
           <Photo url={`https://farm5.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`} key={photo.id} title={photo.title}/>
               );
-      
-   
+    
+       
     return(
       <div className="photo-container">
-      <h2>{this.props.title}</h2>
-        <ul>
-          {
-            this.props.loading
-            ? <p>Loading...</p>
-            : results.length
-            ? photos
-            : <NoPhotos />
-          }
-        </ul>
-      </div> 
+            {
+              this.props.loading
+              ? <h2>Loading...</h2>
+              : results.length
+              ? (<div>
+                  <h2>{this.props.title}</h2>
+                  <ul>{photos}</ul>
+                </div>)
+              : <ul><NoPhotos /></ul>
+            }
+      </div>
     );
   }
+
 }
 
 
