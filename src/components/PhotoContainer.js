@@ -30,7 +30,6 @@ class PhotoContainer extends Component {
 
   render() {
     const results = this.props.data;
-    const isData = results.length ? true: false;
     let photos;
 
       photos = results.map(photo =>
