@@ -11,7 +11,10 @@ This is a photo gallery app that I created using React.  There is a search bar t
 const apiKey = 'YOUR_PUBLIC_KEY';
 export default apiKey;  
 ```
-5. Run the command `npm start` to start the app and it will be open up in your browser with [`localhost:3000`](http://localhost:3000/).    
+5. Run the command `npm start` to start the app and it will be open up in your browser with [`localhost:3000`](http://localhost:3000/).
+
+**Click below for a live preview**\
+http://www.jonhayjr.com/react-gallery-app/
 
 ## Getting Started with Create React App
 

@@ -48,7 +48,7 @@ export default class App extends Component {
   
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename='/react-gallery-app'>
       <div className='container'>
         <SearchForm onSearch={this.getAPIData}/>
         <Nav/>
