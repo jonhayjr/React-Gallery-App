@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
 import{
-  BrowserRouter,
   Route,
   Switch,
-  Redirect
+  Redirect,
+  HashRouter
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -47,8 +47,9 @@ export default class App extends Component {
 }
   
   render() {
+    console.log(process)
     return (
-      <BrowserRouter basename='/react-gallery-app'>
+      <HashRouter basename={process.env.PUBLIC_URL}>
       <div className='container'>
         <SearchForm onSearch={this.getAPIData}/>
         <Nav/>
@@ -58,7 +59,7 @@ export default class App extends Component {
             <Route component={FourOhFour}/>
           </Switch>
       </div>
-  </BrowserRouter>
+  </HashRouter>
     )
   }
 }

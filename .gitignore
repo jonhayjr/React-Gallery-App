@@ -24,3 +24,6 @@ yarn-error.log*
 
 # ignore API Config
 /src/config.js
+
+# Local Netlify folder
+.netlify
