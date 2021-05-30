@@ -4,7 +4,7 @@ import{
   Route,
   Switch,
   Redirect,
-  HashRouter
+  BrowserRouter
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -47,9 +47,9 @@ export default class App extends Component {
 }
   
   render() {
-    console.log(process)
+
     return (
-      <HashRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter>
       <div className='container'>
         <SearchForm onSearch={this.getAPIData}/>
         <Nav/>
@@ -59,7 +59,7 @@ export default class App extends Component {
             <Route component={FourOhFour}/>
           </Switch>
       </div>
-  </HashRouter>
+  </BrowserRouter>
     )
   }
 }
