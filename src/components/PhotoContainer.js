@@ -4,9 +4,6 @@ import NoPhotos from './NotFound';
 import {withRouter} from 'react-router-dom';
 
 class PhotoContainer extends Component {
-  constructor(props) {
-    super(props); 
-  }
 
   componentDidMount() {
     ///Get current topic from path.  Use flowers as default value.

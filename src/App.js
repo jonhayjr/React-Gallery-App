@@ -4,8 +4,7 @@ import{
   HashRouter,
   Route,
   Switch,
-  Redirect,
-  BrowserRouter
+  Redirect
 } from 'react-router-dom';
 import axios from 'axios';
 
