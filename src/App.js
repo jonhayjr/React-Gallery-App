@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import{
+  HashRouter,
   Route,
   Switch,
   Redirect,
@@ -49,7 +50,7 @@ export default class App extends Component {
   render() {
 
     return (
-      <BrowserRouter>
+      <HashRouter>
       <div className='container'>
         <SearchForm onSearch={this.getAPIData}/>
         <Nav/>
@@ -59,7 +60,7 @@ export default class App extends Component {
             <Route component={FourOhFour}/>
           </Switch>
       </div>
-  </BrowserRouter>
+  </HashRouter>
     )
   }
 }
